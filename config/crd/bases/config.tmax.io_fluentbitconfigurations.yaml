@@ -1,0 +1,95 @@
+
+---
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.3.0
+  creationTimestamp: null
+  name: fluentbitconfigurations.config.tmax.io
+spec:
+  group: config.tmax.io
+  names:
+    kind: FluentBitConfiguration
+    listKind: FluentBitConfigurationList
+    plural: fluentbitconfigurations
+    singular: fluentbitconfiguration
+  scope: Namespaced
+  subresources:
+    status: {}
+  validation:
+    openAPIV3Schema:
+      description: FluentBitConfiguration is the Schema for the fluentbitconfigurations
+        API
+      properties:
+        apiVersion:
+          description: 'APIVersion defines the versioned schema of this representation
+            of an object. Servers should convert recognized schemas to the latest
+            internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+          type: string
+        kind:
+          description: 'Kind is a string value representing the REST resource this
+            object represents. Servers may infer this from the endpoint the client
+            submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+          type: string
+        metadata:
+          type: object
+        spec:
+          description: FluentBitConfigurationSpec defines the desired state of FluentBitConfiguration
+          properties:
+            filterPlugins:
+              items:
+                properties:
+                  parserName:
+                    type: string
+                  regex:
+                    type: string
+                  tag:
+                    type: string
+                type: object
+              type: array
+            inputPlugins:
+              items:
+                properties:
+                  path:
+                    type: string
+                  pattern:
+                    type: string
+                  tag:
+                    type: string
+                type: object
+              type: array
+            outputPlugins:
+              items:
+                properties:
+                  indexName:
+                    type: string
+                  tag:
+                    type: string
+                type: object
+              type: array
+          required:
+          - inputPlugins
+          - outputPlugins
+          type: object
+        status:
+          description: FluentBitConfigurationStatus defines the observed state of
+            FluentBitConfiguration
+          properties:
+            logRootPath:
+              type: string
+            phase:
+              type: string
+          type: object
+      type: object
+  version: v1alpha1
+  versions:
+  - name: v1alpha1
+    served: true
+    storage: true
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []

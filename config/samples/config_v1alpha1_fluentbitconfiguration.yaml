@@ -1,0 +1,19 @@
+apiVersion: config.tmax.io/v1alpha1
+kind: FluentBitConfiguration
+metadata:
+  name: fluentbitconfiguration-sample
+spec:
+  inputPlugins:
+   - path: /test/log/sys_log
+     pattern: sys*
+     tag: sys
+#  filterPlugins: 
+#  - parserName: app-parser
+#    regex: '^(?<host>[^ ]*) [^ ]* (?<user>[^ ]*) \[(?<time>[^\]]*)\] "(?<method>\S+)(?: +(?<path>[^\"]*?)(?: +\S*)?)?" (?<code>[^ ]*) (?<size>[^ ]*)(?: "(?<referer>[^\"]*)" "(?<agent>[^\"]*)")?$'
+#    tag: app
+  outputPlugins:
+  - indexName: app
+    tag: app
+  - indexName: sys
+    tag: sys
+
