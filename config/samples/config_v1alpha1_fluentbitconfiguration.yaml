@@ -1,7 +1,7 @@
 apiVersion: config.tmax.io/v1alpha1
 kind: FluentBitConfiguration
 metadata:
-  name: fluentbitconfiguration-sample
+  name: fluent-bit-config
 spec:
   inputPlugins:
    - path: /test/log/sys_log

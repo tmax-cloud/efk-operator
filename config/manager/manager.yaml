@@ -22,9 +22,13 @@ spec:
       labels:
         control-plane: controller-manager
     spec:
+      nodeSelector:
+        kubernetes.io/hostname: cho
       containers:
       - command:
         - /manager
+        - --es-host=es-file.kube-logging.svc.cluster.local
+        - --es-port=9200
         args:
         - --enable-leader-election
         image: controller:latest

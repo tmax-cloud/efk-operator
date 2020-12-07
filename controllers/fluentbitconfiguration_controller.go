@@ -36,6 +36,10 @@ import (
 	"k8s.io/apimachinery/pkg/types"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
+	"sigs.k8s.io/controller-runtime/pkg/event"
+	"sigs.k8s.io/controller-runtime/pkg/handler"
+	"sigs.k8s.io/controller-runtime/pkg/predicate"
+	"sigs.k8s.io/controller-runtime/pkg/source"
 )
 
 const (
@@ -427,7 +431,37 @@ func commonPrefix(sep byte, paths []string) string {
 }
 
 func (r *FluentBitConfigurationReconciler) SetupWithManager(mgr ctrl.Manager) error {
-	return ctrl.NewControllerManagedBy(mgr).
+	// return ctrl.NewControllerManagedBy(mgr).
+	// 	For(&configv1alpha1.FluentBitConfiguration{}).
+	// 	Complete(r)
+
+	controller, err := ctrl.NewControllerManagedBy(mgr).
 		For(&configv1alpha1.FluentBitConfiguration{}).
-		Complete(r)
+		Build(r)
+
+	if err != nil {
+		return err
+	}
+
+	return controller.Watch(
+		&source.Kind{Type: &corev1.ConfigMap{}},
+		&handler.EnqueueRequestForOwner{
+			OwnerType: &configv1alpha1.FluentBitConfiguration{}, IsController: true,
+		},
+		predicate.Funcs{
+			UpdateFunc: func(e event.UpdateEvent) bool {
+				return false
+			},
+			CreateFunc: func(e event.CreateEvent) bool {
+				return false
+			},
+			DeleteFunc: func(e event.DeleteEvent) bool {
+				return true
+			},
+			GenericFunc: func(e event.GenericEvent) bool {
+				return false
+			},
+		},
+	)
+
 }

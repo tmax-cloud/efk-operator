@@ -13,6 +13,8 @@ spec:
     kind: FluentBitConfiguration
     listKind: FluentBitConfigurationList
     plural: fluentbitconfigurations
+    shortNames:
+    - fbc
     singular: fluentbitconfiguration
   scope: Namespaced
   subresources:

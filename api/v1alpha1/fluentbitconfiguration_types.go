@@ -58,6 +58,7 @@ type FluentBitConfigurationStatus struct {
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
+// +kubebuilder:resource:shortName=fbc
 
 // FluentBitConfiguration is the Schema for the fluentbitconfigurations API
 type FluentBitConfiguration struct {
