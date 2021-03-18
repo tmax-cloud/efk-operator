@@ -96,11 +96,11 @@
             args: [/bin/sh, -c, 'i=0; while true; do echo "$(date)" && sleep 10; i=$((i+1)); done']
             env:
             - name: FLUENT_ELASTICSEARCH_HOST
-            value: "elasticsearch.kube-logging.svc.cluster.local"
+              value: "elasticsearch.kube-logging.svc.cluster.local"
             - name: FLUENT_ELASTICSEARCH_PORT
-            value: "9200"
+              value: "9200"
             - name: FLUENT_ELASTICSEARCH_SCHEME
-            value: "http"
+              value: "http"
     ```
 
 ## 참고
