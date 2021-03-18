@@ -17,10 +17,10 @@
 ## Flow
   1. 유저가 fluentbitconfiguration 리소스를 생성
   2. efk-operator가 이를 감지하고 그에 해당하는 configmap 생성
-  3. injection 하고싶은 리소스에 아래와 같이 두 가지 label을 추가한다.
+  3. injection 하고싶은 리소스에 아래와 같이 두 가지 label을 추가
   * log-collector: enbaled
   * tmax.io/log-collector-configuration: {생성된 configmap 이름}
-  4. 해당 리소스 생성시, [hypercloud-api-server의 webhook](https://github.com/tmax-cloud/hypercloud-api-server/blob/master/admission/sidecarInjectionHandler.go) 의해 sidecar injection이 된다.
+  4. 해당 리소스 생성시, [hypercloud-api-server의 webhook](https://github.com/tmax-cloud/hypercloud-api-server/blob/master/admission/sidecarInjectionHandler.go) 의해 sidecar injection 됨
 
 ## 예시
   * fluentbitconfiguration
@@ -105,3 +105,4 @@
 
 ## 참고
   * [MutatingWebhookConfiguration](https://github.com/tmax-cloud/install-hypercloud/blob/5.0/hypercloud-api-server/config/webhook-configuration.yaml)
+    * caBundle에는 openssl base64 -A < "/etc/kubernetes/pki/hypercloud-root-ca.crt" 값 
